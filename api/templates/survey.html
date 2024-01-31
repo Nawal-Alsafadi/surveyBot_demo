@@ -1,0 +1,53 @@
+<!-- templates/survey.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (your existing head content) ... -->
+</head>
+<body>
+    {% if question_id == 'cold_start_message' %}
+        <!-- ... (unchanged) ... -->
+    {% else %}
+        <h1>{{ question['text'] }}</h1>
+        <form id="surveyForm" action="/surveydemo" method="POST">
+            <!-- Include input fields based on the current question type -->
+            {% if question_id == 'q1' %}
+                {% for field in question.fields %}
+                    <label>{{ field.capitalize() }}: <input type="text" name="{{ field }}"></label>
+                {% endfor %}
+            {% elif question.type == 'yes_no' %}
+                <label>Yes: <input type="radio" name="{{ question.field }}" value="yes"></label>
+                <label>No: <input type="radio" name="{{ question.field }}" value="no"></label>
+            {% elif question.type == 'radio' %}
+                {% for choice in question.choices %}
+                    <label>{{ choice }}: <input type="radio" name="{{ question.field }}" value="{{ choice }}"></label>
+                {% endfor %}
+            {% elif question.type == 'multiple_choices' %}
+                {% for choice in question.choices %}
+                    <label>{{ choice }}: <input type="checkbox" name="{{ question.field }}" value="{{ choice }}"></label>
+                {% endfor %}
+            {% elif question.type == 'comment' %}
+                <label>Comment: <textarea name="{{ question.field }}"></textarea></label>
+            {% elif question.type == 'rating' %}
+                <label>Rating: <input type="number" name="{{ question.field }}" min="1" max="5"></label>
+            {% elif question.type == 'numeric' %}
+                <label>Numeric Value: <input type="number" name="{{ question.field }}"></label>
+            {% elif question.type == 'dynamic_choice' %}
+                {% for choice in question.choices %}
+                    <label>{{ choice }}: <input type="text" name="{{ choice }}"></label>
+                {% endfor %}
+            {% endif %}
+            {% if question_id == 'end_message' %}
+                <button type="submit">Submit</button>
+            {% else %}
+                <button type="submit">Next</button>
+                <input type="hidden" name="current_question" value="{{ question_id }}">
+            {% endif %}
+        </form>
+    {% endif %}
+
+    <script>
+        // Add any JavaScript code here if needed
+    </script>
+</body>
+</html>

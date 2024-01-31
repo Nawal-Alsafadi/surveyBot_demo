@@ -1,0 +1,15 @@
+{
+  "cold_start_message": {"next_question": "q1", "type": "message", "text": "Welcome to the Survey Bot survey 1!"},
+  "q1": {"next_question": "q2", "type": "input", "fields": ["name", "age", "email", "course"], "text": "What is your name, age, email, and course?"},
+  "q2": {"next_question_yes": "q3", "next_question_no": "q5", "type": "yes_no", "field": "value", "text": "Was there any problem in your course?"},
+  "q3": {"next_question_yes": "q4", "next_question_no": "q5", "type": "yes_no", "field": "value", "text": "Are you going to join another course?"},
+  "q4": {"next_question": ["q6", "q5", "q6"], "type": "radio", "field": "value", "choices": ["Option A", "Option B", "Option C"], "text": "What courses would you like to join?"},
+  "q5": {"next_question": "q6", "type": "comment", "field": "value", "text": "Please leave a comment."},
+  "q6": {"next_question": "q7", "type": "numeric", "field": "value", "text": "how many hours did you spent in this course ?."},
+  "q7": {"next_question": "q8", "type": "multiple_choices", "field": "value", "choices": ["A", "B", "C"], "text": "picker ?"},
+
+  
+  "q8": {"next_question": "end_message", "type": "rating", "field": "value", "text": "How would you rate the overall experience with our Customer Support Team? Please note that 5 means very well and 1 stands for very bad."},
+  
+  "end_message": {"next_question": "", "type": "message", "text": "Thank you for completing the survey!"}
+}
